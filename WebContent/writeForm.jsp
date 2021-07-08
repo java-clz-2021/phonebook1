@@ -21,6 +21,10 @@
 		핸드폰(hp): <input type="text" name="hp" value=""> <br>
 		회사(company): <input type="text" name="company" value=""> <br>
 		
+		<input type="checkbox" name="pet" value="dog">개 <br>
+		<input type="checkbox" name="pet" value="cat">고양이<br>
+		<input type="checkbox" name="pet" value="bird">새 <br>
+		
 		<button type="submit">등록</button>
 	</form>
 	
