@@ -8,7 +8,9 @@
    
 
 <%
+	request.setCharacterEncoding("UTF-8");  //post일때 한글깨지는 문제 해결
 
+	
 	PhoneDao phoneDao = new PhoneDao();
 
 	//파라미터에서 꺼내기
