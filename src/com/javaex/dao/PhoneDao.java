@@ -57,7 +57,7 @@ public class PhoneDao {
 
 	// 사람 추가
 	public int personInsert(PersonVo personVo) {
-		int count = 0;
+		int count = -1;
 		getConnection();
 
 		try {
@@ -77,11 +77,12 @@ public class PhoneDao {
 			count = pstmt.executeUpdate(); // 쿼리문 실행
 
 			// 4.결과처리
-			// System.out.println("[" + count + "건 추가되었습니다.]");
+			System.out.println("[" + count + "건 추가되었습니다.]");
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		}
+		
 		close();
 		return count;
 	}
@@ -107,16 +108,20 @@ public class PhoneDao {
 			query += "         company ";
 			query += " from person";
 
-			if (keword != "" || keword == null) {
+			if (keword != "" || keword == null) { //검색어 있을때
 				query += " where name like ? ";
 				query += " or hp like  ? ";
 				query += " or company like ? ";
+				query += " order by person_id desc ";
+				
 				pstmt = conn.prepareStatement(query); // 쿼리로 만들기
 
 				pstmt.setString(1, '%' + keword + '%'); // ?(물음표) 중 1번째, 순서중요
 				pstmt.setString(2, '%' + keword + '%'); // ?(물음표) 중 2번째, 순서중요
 				pstmt.setString(3, '%' + keword + '%'); // ?(물음표) 중 3번째, 순서중요
-			} else {
+			
+			} else {                             //검색어 없을때
+				query += " order by person_id desc ";
 				pstmt = conn.prepareStatement(query); // 쿼리로 만들기
 			}
 
@@ -145,7 +150,7 @@ public class PhoneDao {
 
 	// 사람 수정
 	public int personUpdate(PersonVo personVo) {
-		int count = 0;
+		int count = -1;
 		getConnection();
 
 		try {
@@ -168,7 +173,7 @@ public class PhoneDao {
 			count = pstmt.executeUpdate(); // 쿼리문 실행
 
 			// 4.결과처리
-			// System.out.println(count + "건 수정되었습니다.");
+			System.out.println(count + "건 수정되었습니다.");
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -180,7 +185,7 @@ public class PhoneDao {
 
 	// 사람 삭제
 	public int personDelete(int personId) {
-		int count = 0;
+		int count = -1;
 		getConnection();
 
 		try {
@@ -195,7 +200,7 @@ public class PhoneDao {
 			count = pstmt.executeUpdate(); // 쿼리문 실행
 
 			// 4.결과처리
-			// System.out.println(count + "건 삭제되었습니다.");
+			System.out.println(count + "건 삭제되었습니다.");
 
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
@@ -238,11 +243,8 @@ public class PhoneDao {
 			
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error:" + e);
 		}
-
-		// 4.결과처리
 
 		close();
 
